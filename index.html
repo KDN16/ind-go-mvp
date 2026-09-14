@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IND Go — Ride Booking MVP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="flag">▰</span><b>IND</b> <strong>Go</strong></div>
+    <span class="pill">MVP Demo</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">INDIA MOVES WITH YOU.</p>
+        <h1>Your ride,<br><span>your way.</span></h1>
+        <p class="sub">Book a Bike, Auto or Car in a few taps.</p>
+      </div>
+      <div class="hero-card">
+        <div class="map">
+          <div class="road"></div><div class="pin pickup">●</div><div class="pin drop">●</div>
+          <div class="route"></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab active" data-view="rider">Rider</button>
+      <button class="tab" data-view="driver">Driver</button>
+      <button class="tab" data-view="admin">Admin</button>
+    </nav>
+
+    <section id="rider" class="view active">
+      <div class="card booking">
+        <h2>Book a ride</h2>
+        <label>Pickup</label>
+        <input id="pickup" value="Current location" />
+        <label>Destination</label>
+        <input id="destination" placeholder="Where are you going?" />
+        <div class="vehicle-grid">
+          <button class="vehicle selected" data-vehicle="Bike"><span>🏍️</span><b>Bike</b><small>₹8/km</small></button>
+          <button class="vehicle" data-vehicle="Auto"><span>🛺</span><b>Auto</b><small>₹12/km</small></button>
+          <button class="vehicle" data-vehicle="Car"><span>🚗</span><b>Car</b><small>₹16/km</small></button>
+        </div>
+        <div class="fare"><span>Estimated fare</span><b id="fare">₹80–₹110</b></div>
+        <button class="primary" id="bookRide">Find a ride</button>
+        <div id="bookingStatus" class="status"></div>
+      </div>
+      <div class="quick-grid">
+        <div class="mini"><b>⚡ Fast</b><span>Nearby drivers</span></div>
+        <div class="mini"><b>🛡️ Safe</b><span>Trip sharing & SOS</span></div>
+        <div class="mini"><b>₹ Affordable</b><span>Clear fares</span></div>
+      </div>
+    </section>
+
+    <section id="driver" class="view">
+      <div class="card">
+        <div class="row"><div><h2>Driver dashboard</h2><p class="muted">Ready to earn with IND Go?</p></div><button id="onlineBtn" class="toggle">OFFLINE</button></div>
+        <div class="earn"><span>Today's earnings</span><b>₹1,240</b></div>
+        <div class="driver-stats"><div><b>8</b><span>Trips</span></div><div><b>4.8★</b><span>Rating</span></div><div><b>₹155</b><span>Avg. trip</span></div></div>
+        <div class="request">
+          <div><div class="request-title">New ride request</div><b>📍 GS Road</b><br><span>→ Paltan Bazaar · 4.2 km</span></div>
+          <div class="request-fare">₹92</div>
+        </div>
+        <div class="actions"><button class="secondary" id="decline">Decline</button><button class="primary" id="accept">Accept ride</button></div>
+        <div id="driverStatus" class="status"></div>
+      </div>
+    </section>
+
+    <section id="admin" class="view">
+      <div class="stats-grid">
+        <div class="stat"><span>Active rides</span><b>126</b><em>+12%</em></div>
+        <div class="stat"><span>Online drivers</span><b>842</b><em>+8%</em></div>
+        <div class="stat"><span>Today's rides</span><b>4,218</b><em>+16%</em></div>
+        <div class="stat"><span>Revenue</span><b>₹6.84L</b><em>+11%</em></div>
+      </div>
+      <div class="card">
+        <h2>Operations</h2>
+        <div class="admin-row"><span>Driver verification</span><b>24 pending</b><button>Review</button></div>
+        <div class="admin-row"><span>Customer complaints</span><b>7 open</b><button>Open</button></div>
+        <div class="admin-row"><span>Payment settlements</span><b>₹2.1L pending</b><button>View</button></div>
+        <div class="admin-row"><span>City coverage</span><b>12 cities</b><button>Manage</button></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>IND Go • India Moves With You. <span>Prototype — backend/payment/maps are not connected yet.</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
