@@ -126,7 +126,12 @@ let driverRideId = null;
                                                                                                                                                                                                                               const requests = Object.entries(rides)
                                                                                                                                                                                                                                   .filter(([id, ride]) => ride.status === "requested");
 
-                                                                                                                                                                                                                                    if (requests.length === 0) return;
+                                                                                                                                                                                                                                    if (requests.length === 0) {
+  driverRideId = null;
+  document.getElementById("requestPickup").textContent = "No new ride request";
+  document.getElementById("requestDestination").textContent = "";
+  return;
+                                                                                                                                                                                                                                    }
 
                                                                                                                                                                                                                                       const [id, ride] = requests[0];
 
@@ -161,7 +166,7 @@ let driverRideId = null;
 
                                                                                                                                                                                                                                               // DRIVER: Accept
                                                                                                                                                                                                                                               document.getElementById("accept").onclick = async () => {
-                                                                                                                                                                                                                                                if (!currentRideId) {
+                                                                                                                                                                                                                                                if (!driverRideId) {
                                                                                                                                                                                                                                                     document.getElementById("driverStatus").textContent =
                                                                                                                                                                                                                                                           "No ride request available.";
                                                                                                                                                                                                                                                               return;
