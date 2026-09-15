@@ -175,7 +175,29 @@ let driverRideId = null;
                                                                                                                                                                                                                                                                   await update(ref(db, `rides/${driverRideId}`), {
                                                                                                                                                                                                                                                                       status: "accepted"
                                                                                                                                                                                                                                                                         });
+// DRIVER: Decline
+document.getElementById("decline").onclick = async () => {
+  if (!driverRideId) {
+    document.getElementById("driverStatus").textContent =
+      "No ride request available.";
+    return;
+  }
 
+  await update(ref(db, `rides/${driverRideId}`), {
+    status: "declined"
+  });
+
+  driverRideId = null;
+
+  document.getElementById("requestPickup").textContent =
+    "📍 Waiting for rider...";
+
+  document.getElementById("requestDestination").textContent =
+    "→ No ride request yet";
+
+  document.getElementById("driverStatus").textContent =
+    "Ride declined.";
+};
                                                                                                                                                                                                                                                                           document.getElementById("driverStatus").textContent =
                                                                                                                                                                                                                                                                               "Ride accepted. Navigate to the pickup point.";
                                                                                                                                                                                                                                                                               };
