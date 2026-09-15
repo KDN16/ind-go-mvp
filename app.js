@@ -53,7 +53,8 @@ import {
                                                                                 };
                                                                                 });
 
-                                                                                let currentRideId = null;
+                                                                                let riderRideId = null;
+let driverRideId = null;
 
                                                                                 // RIDER: Book ride
                                                                                 document.getElementById("bookRide").onclick = async () => {
@@ -67,7 +68,7 @@ import {
                                                                                                       }
 
                                                                                                         const rideRef = push(ref(db, "rides"));
-                                                                                                          currentRideId = rideRef.key;
+                                                                                                          riderRideId = rideRef.key;
 
                                                                                                             await set(rideRef, {
                                                                                                                 pickup: pickup || "Current location",
@@ -88,7 +89,7 @@ import {
                                                                                                                                             if (!rides) return;
 
                                                                                                                                               Object.entries(rides).forEach(([id, ride]) => {
-                                                                                                                                                  if (id !== currentRideId) return;
+                                                                                                                                                  if (id !== riderRideId) return;
 
                                                                                                                                                       if (ride.status === "accepted") {
                                                                                                                                                             document.getElementById("bookingStatus").textContent =
@@ -129,7 +130,7 @@ import {
 
                                                                                                                                                                                                                                       const [id, ride] = requests[0];
 
-                                                                                                                                                                                                                                        currentRideId = id;
+                                                                                                                                                                                                                                        driverRideId = id;
 
                                                                                                                                                                                                                                           document.getElementById("requestPickup").textContent =
                                                                                                                                                                                                                                               `📍 ${ride.pickup}`;
@@ -166,7 +167,7 @@ import {
                                                                                                                                                                                                                                                               return;
                                                                                                                                                                                                                                                                 }
 
-                                                                                                                                                                                                                                                                  await update(ref(db, `rides/${currentRideId}`), {
+                                                                                                                                                                                                                                                                  await update(ref(db, `rides/${driverRideId}`), {
                                                                                                                                                                                                                                                                       status: "accepted"
                                                                                                                                                                                                                                                                         });
 
