@@ -100,6 +100,12 @@ let driverRideId = null;
                                                                                                                                                                                   document.getElementById("bookingStatus").textContent =
                                                                                                                                                                                           "Ride declined. Looking for another driver…";
                                                                                                                                                                                               }
+                                                                                                                                                }
+ 
+if (ride.status === "cancelled") {
+  document.getElementById("bookingStatus").textContent =
+    "Driver cancelled the ride. Looking for another driver…";
+}
                                                                                                                                                                                                 });
                                                                                                                                                                                                 });
 
