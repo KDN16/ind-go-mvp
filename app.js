@@ -131,9 +131,32 @@ import {
 
                                                                                                                                                                                                                                         currentRideId = id;
 
-                                                                                                                                                                                                                                          document.getElementById("driverStatus").textContent =
-                                                                                                                                                                                                                                              `Ride request: ${ride.pickup} → ${ride.destination} · ${ride.vehicle}`;
-                                                                                                                                                                                                                                              });
+                                                                                                                                                                                                                                          document.getElementById("requestPickup").textContent =
+                                                                                                                                                                                                                                              `📍 ${ride.pickup}`;
+
+                                                                                                                                                                                                                                                document.getElementById("requestDestination").textContent =
+                                                                                                                                                                                                                                                    `→ ${ride.destination} · ${ride.vehicle}`;
+
+                                                                                                                                                                                                                                                      document.getElementById("driverStatus").textContent =
+                                                                                                                                                                                                                                                          `Ride request: ${ride.pickup} → ${ride.destination}`;
+                                                                                                                                                                                                                                                          });
+                                                                                                                                                                                                                        
+                                                                                                                                                                                                                          
+
+                                                                                                                                                                                                                            
+
+                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                  
+
+                                                                                                                                                                                                                                    
+
+                                                                                                                                                                                                                                      
+
+                                                                                                                                                                                                                                        
+
+                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                              
+                                                                                                          
 
                                                                                                                                                                                                                                               // DRIVER: Accept
                                                                                                                                                                                                                                               document.getElementById("accept").onclick = async () => {
