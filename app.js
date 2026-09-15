@@ -165,16 +165,44 @@ let driverRideId = null;
                                                                                                           
 
                                                                                                                                                                                                                                               // DRIVER: Accept
-                                                                                                                                                                                                                                              document.getElementById("accept").onclick = async () => {
-                                                                                                                                                                                                                                                if (!driverRideId) {
-                                                                                                                                                                                                                                                    document.getElementById("driverStatus").textContent =
-                                                                                                                                                                                                                                                          "No ride request available.";
-                                                                                                                                                                                                                                                              return;
-                                                                                                                                                                                                                                                                }
+document.getElementById("accept").onclick = async () => {
+  if (!driverRideId) {
+    document.getElementById("driverStatus").textContent =
+      "No ride request available.";
+    return;
+  }
 
-                                                                                                                                                                                                                                                                  await update(ref(db, `rides/${driverRideId}`), {
-                                                                                                                                                                                                                                                                      status: "accepted"
-                                                                                                                                                                                                                                                                        });
+  await update(ref(db, `rides/${driverRideId}`), {
+    status: "accepted"
+  });
+
+  document.getElementById("driverStatus").textContent =
+    "Ride accepted. Navigate to the pickup point.";
+};
+
+// DRIVER: Cancel Ride
+document.getElementById("decline").onclick = async () => {
+  if (!driverRideId) {
+    document.getElementById("driverStatus").textContent =
+      "No ride request available.";
+    return;
+  }
+
+  await update(ref(db, `rides/${driverRideId}`), {
+    status: "cancelled"
+  });
+
+  driverRideId = null;
+
+  document.getElementById("requestPickup").textContent =
+    "📍 Waiting for rider...";
+
+  document.getElementById("requestDestination").textContent =
+    "→ No ride request yet";
+
+  document.getElementById("driverStatus").textContent =
+    "Ride cancelled.";
+};
 // DRIVER: Decline
 document.getElementById("decline").onclick = async () => {
   if (!driverRideId) {
