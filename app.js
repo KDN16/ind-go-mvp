@@ -125,36 +125,54 @@ if (ride.status === "cancelled") {
                                                                                                                                                                                                                         };
 
                                                                                                                                                                                                                         // DRIVER: Listen for ride requests
-                                                                                                                                                                                                                        onValue(ref(db, "rides"), snapshot => {
-                                                                                                                                                                                                                          const rides = snapshot.val();
+document.getElementById("requestPickup").textContent =
+  "Checking for ride requests...";
 
-                                                                                                                                                                                                                            if (!rides) return;
+onValue(
+  ref(db, "rides"),
+  snapshot => {
+    const rides = snapshot.val();
 
-                                                                                                                                                                                                                              const requests = Object.entries(rides)
-                                                                                                                                                                                                                                  .filter(([id, ride]) => ride.status === "requested");
+    if (!rides) {
+      driverRideId = null;
+      document.getElementById("requestPickup").textContent =
+        "No new ride request";
+      document.getElementById("requestDestination").textContent = "";
+      return;
+    }
 
-                                                                                                                                                                                                                                    if (requests.length === 0) {
-  driverRideId = null;
-  document.getElementById("requestPickup").textContent = "No new ride request";
-  document.getElementById("requestDestination").textContent = "";
-  return;
-                                                                                                                                                                                                                                    }
+    const requests = Object.entries(rides)
+      .filter(([id, ride]) => ride && ride.status === "requested");
 
-                                                                                                                                                                                                                                      const [id, ride] = requests[0];
+    if (requests.length === 0) {
+      driverRideId = null;
+      document.getElementById("requestPickup").textContent =
+        "No new ride request";
+      document.getElementById("requestDestination").textContent = "";
+      return;
+    }
 
-                                                                                                                                                                                                                                        driverRideId = id;
-                                                                                                                                                                                                                          document.getElementById("requestFare").textContent = ride.fare;
+    const [id, ride] = requests[0];
 
-                                                                                                                                                                                                                                          document.getElementById("requestPickup").textContent =
-                                                                                                                                                                                                                                              `📍 ${ride.pickup}`;
+    driverRideId = id;
 
-                                                                                                                                                                                                                                                document.getElementById("requestDestination").textContent =
-                                                                                                                                                                                                                                                    `→ ${ride.destination} · ${ride.vehicle}`;
+    document.getElementById("requestFare").textContent =
+      ride.fare || "";
 
-                                                                                                                                                                                                                                                      document.getElementById("driverStatus").textContent =
-                                                                                                                                                                                                                                                          `Ride request: ${ride.pickup} → ${ride.destination}`;
-                                                                                                                                                                                                                                                          });
-                                                                                                                                                                                                                        
+    document.getElementById("requestPickup").textContent =
+      `📍 ${ride.pickup}`;
+
+    document.getElementById("requestDestination").textContent =
+      `→ ${ride.destination} · ${ride.vehicle}`;
+
+    document.getElementById("driverStatus").textContent =
+      `Ride request: ${ride.pickup} → ${ride.destination}`;
+  },
+  error => {
+    document.getElementById("driverStatus").textContent =
+      `Firebase error: ${error.message}`;
+  }
+);                                                                                                                                                                                                                        
                                                                                                                                                                                                                           
 
                                                                                                                                                                                                                             
