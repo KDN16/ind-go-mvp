@@ -55,6 +55,7 @@ import {
                                                                                 });
 
                                                                                 let riderRideId = null;
+let driverRideId = null;
 
 
                                                                                 // RIDER: Book ride
