@@ -5,7 +5,8 @@ import {
       push,
         set,
           onValue,
-            update
+            update,
+  get
             } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
             const firebaseConfig = {
@@ -54,7 +55,7 @@ import {
                                                                                 });
 
                                                                                 let riderRideId = null;
-let driverRideId = null;
+
 
                                                                                 // RIDER: Book ride
                                                                                 document.getElementById("bookRide").onclick = async () => {
@@ -171,20 +172,57 @@ if (ride.status === "cancelled") {
                                                                                                                                                                                                                                               
                                                                                                           
 
-                                                                                                                                                                                                                                              // DRIVER: Accept
+                                                                                                                                                                                                                                              // DRIVER: Accept / Arrived / Start / Complete
 document.getElementById("accept").onclick = async () => {
   if (!driverRideId) {
     document.getElementById("driverStatus").textContent =
-      "No ride request available.";
+      "No active ride available.";
     return;
   }
 
-  await update(ref(db, `rides/${driverRideId}`), {
-    status: "accepted"
-  });
+  const rideRef = ref(db, `rides/${driverRideId}`);
 
-  document.getElementById("driverStatus").textContent =
-    "Ride accepted. Navigate to the pickup point.";
+  const snapshot = await get(rideRef);
+  const ride = snapshot.val();
+
+  if (!ride) return;
+
+  if (ride.status === "requested") {
+    await update(rideRef, {
+      status: "accepted"
+    });
+
+    document.getElementById("accept").textContent = "Arrived at pickup";
+    document.getElementById("driverStatus").textContent =
+      "Ride accepted. Navigate to the pickup point.";
+
+  } else if (ride.status === "accepted") {
+    await update(rideRef, {
+      status: "arrived"
+    });
+
+    document.getElementById("accept").textContent = "Start Ride";
+    document.getElementById("driverStatus").textContent =
+      "Driver arrived at pickup point.";
+
+  } else if (ride.status === "arrived") {
+    await update(rideRef, {
+      status: "in_progress"
+    });
+
+    document.getElementById("accept").textContent = "Complete Ride";
+    document.getElementById("driverStatus").textContent =
+      "Ride started.";
+
+  } else if (ride.status === "in_progress") {
+    await update(rideRef, {
+      status: "completed"
+    });
+
+    document.getElementById("accept").textContent = "Ride Completed";
+    document.getElementById("driverStatus").textContent =
+      "Ride completed successfully.";
+  }
 };
 
 // DRIVER: Cancel Ride
