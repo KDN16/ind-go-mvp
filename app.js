@@ -132,6 +132,7 @@ onValue(
   ref(db, "rides"),
   snapshot => {
     const rides = snapshot.val();
+    console.log("DRIVER RIDES:", rides);
 
     if (!rides) {
       driverRideId = null;
