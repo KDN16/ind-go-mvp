@@ -102,6 +102,20 @@ let driverRideId = null;
                                                                                                                                                                                   document.getElementById("bookingStatus").textContent =
                                                                                                                                                                                           "Ride declined. Looking for another driver…";
                                                                                                                                                                                               }
+                                                                                                                                                if (ride.status === "arrived") {
+  document.getElementById("bookingStatus").textContent =
+    "Driver has arrived at your pickup point.";
+}
+
+if (ride.status === "in_progress") {
+  document.getElementById("bookingStatus").textContent =
+    "Your ride has started.";
+}
+
+if (ride.status === "completed") {
+  document.getElementById("bookingStatus").textContent =
+    "Ride completed successfully.";
+}
                                                                                                                                                 
  
 if (ride.status === "cancelled") {
