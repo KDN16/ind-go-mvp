@@ -142,6 +142,7 @@ if (ride.status === "cancelled") {
                                                                                                                                                                                                                                       const [id, ride] = requests[0];
 
                                                                                                                                                                                                                                         driverRideId = id;
+                                                                                                                                                                                                                          document.getElementById("requestFare").textContent = ride.fare;
 
                                                                                                                                                                                                                                           document.getElementById("requestPickup").textContent =
                                                                                                                                                                                                                                               `📍 ${ride.pickup}`;
