@@ -126,6 +126,26 @@
 
 <button class="fix-service cleaning" data-service="cleaning">
   <span>🧹</span> Cleaning
+  <div id="fixRequestForm" style="display:none;">
+  <h3 id="selectedFixService">Service Request</h3>
+
+  <label for="fixProblem">What do you need help with?</label>
+  <textarea
+    id="fixProblem"
+    placeholder="Describe the problem..."
+    rows="4"
+  ></textarea>
+
+  <label for="fixLocation">Service Location</label>
+  <input
+    id="fixLocation"
+    type="text"
+    placeholder="Enter your location"
+  />
+
+  <button id="requestFixNow">Request Service</button>
+  <button id="cancelFixRequest">Cancel</button>
+  </div>
 </button>
 </section>
 </body>
