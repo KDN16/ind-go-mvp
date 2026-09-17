@@ -290,5 +290,9 @@ document.querySelectorAll(".service-card").forEach(card => {
     console.log("IND ONE SERVICE:", service);
   });
 });
- 
+ // IND ONE: Open FixNow
+document.querySelector('[data-service="fixnow"]').addEventListener("click", () => {
+  document.getElementById("rider").style.display = "none";
+  document.getElementById("fixnow").style.display = "block";
+});
                                                                                                                                                                                                                                                                            
