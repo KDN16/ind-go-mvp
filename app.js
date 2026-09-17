@@ -292,7 +292,10 @@ document.querySelectorAll(".service-card").forEach(card => {
 });
  // IND ONE: Open FixNow
 document.querySelector('[data-service="fixnow"]').addEventListener("click", () => {
-  document.getElementById("rider").style.display = "none";
-  document.getElementById("fixnow").style.display = "block";
+  document.querySelectorAll(".view").forEach(view => {
+    view.classList.remove("active");
+  });
+
+  document.getElementById("fixnow").classList.add("active");
 });
                                                                                                                                                                                                                                                                            
