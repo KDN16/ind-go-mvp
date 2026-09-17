@@ -282,6 +282,13 @@ document.getElementById("decline").onclick = async () => {
   document.getElementById("driverStatus").textContent =
     "Ride cancelled.";
 };
+// IND ONE: Future service card click system
+document.querySelectorAll(".service-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const service = card.dataset.service;
 
+    console.log("IND ONE SERVICE:", service);
+  });
+});
  
                                                                                                                                                                                                                                                                            
