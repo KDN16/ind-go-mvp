@@ -288,8 +288,51 @@ function openService(serviceId) {
   document.querySelectorAll(".view").forEach(view => {
     view.classList.remove("active");
   });
-  // IND ONE: FixNow Service Request Form
 
+  const service = document.getElementById(serviceId);
+
+  if (service) {
+    service.classList.add("active");
+    history.pushState({ service: serviceId }, "", "#" + serviceId);
+  }
+}
+
+function goBackToRider() {
+  document.querySelectorAll(".view").forEach(view => {
+    view.classList.remove("active");
+  });
+
+  document.getElementById("rider").classList.add("active");
+
+  history.pushState({ service: "rider" }, "", "#rider");
+}
+
+// Service cards
+document.querySelectorAll(".service-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const service = card.dataset.service;
+
+    if (service === "fixnow") {
+      openService("fixnow");
+    }
+  });
+});
+
+// FixNow Back button
+const fixnowBack = document.getElementById("fixnowBack");
+
+if (fixnowBack) {
+  fixnowBack.addEventListener("click", () => {
+    goBackToRider();
+  });
+}
+
+// Mobile/browser Back button
+window.addEventListener("popstate", () => {
+  goBackToRider();
+});
+
+// FixNow Service Request Form
 document.addEventListener("click", (event) => {
   const button = event.target.closest(".fix-service");
 
@@ -319,6 +362,9 @@ document.addEventListener("click", (event) => {
     requestForm.style.display = "none";
   }
 
-  document.getElementById("fixProblem").value = "";
-  document.getElementById("fixLocation").value = "";
+  const problem = document.getElementById("fixProblem");
+  const location = document.getElementById("fixLocation");
+
+  if (problem) problem.value = "";
+  if (location) location.value = "";
 });
