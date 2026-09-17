@@ -288,6 +288,29 @@ function openService(serviceId) {
   document.querySelectorAll(".view").forEach(view => {
     view.classList.remove("active");
   });
+  // IND ONE: FixNow Service Request Form
+
+document.querySelectorAll(".fix-service").forEach(button => {
+  button.addEventListener("click", () => {
+    const serviceName = button.textContent.trim();
+
+    document.getElementById("selectedFixService").textContent =
+      serviceName + " Request";
+
+    document.getElementById("fixRequestForm").style.display = "block";
+  });
+});
+
+// Cancel request
+const cancelFixRequest = document.getElementById("cancelFixRequest");
+
+if (cancelFixRequest) {
+  cancelFixRequest.addEventListener("click", () => {
+    document.getElementById("fixRequestForm").style.display = "none";
+    document.getElementById("fixProblem").value = "";
+    document.getElementById("fixLocation").value = "";
+  });
+}
 
   const service = document.getElementById(serviceId);
 
