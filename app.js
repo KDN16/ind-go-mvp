@@ -282,32 +282,52 @@ document.getElementById("decline").onclick = async () => {
   document.getElementById("driverStatus").textContent =
     "Ride cancelled.";
 };
-// IND ONE: Future service card click system
-document.querySelectorAll(".service-card").forEach(card => {
-  card.addEventListener("click", () => {
-    const service = card.dataset.service;
+ // IND ONE: Service Navigation System
 
-    console.log("IND ONE SERVICE:", service);
-  });
-});
- // IND ONE: Open FixNow
-document.querySelector('[data-service="fixnow"]').addEventListener("click", () => {
+function openService(serviceId) {
   document.querySelectorAll(".view").forEach(view => {
     view.classList.remove("active");
   });
 
-  document.getElementById("fixnow").classList.add("active");
-});
-// IND ONE: FixNow service selection
-document.querySelectorAll(".fix-service").forEach(button => {
-  button.addEventListener("click", () => {
-    const service = button.dataset.service;
-    console.log("FIXNOW SERVICE:", service);
+  const service = document.getElementById(serviceId);
+
+  if (service) {
+    service.classList.add("active");
+    history.pushState({ service: serviceId }, "", "#" + serviceId);
+  }
+}
+
+function goBackToRider() {
+  document.querySelectorAll(".view").forEach(view => {
+    view.classList.remove("active");
+  });
+
+  document.getElementById("rider").classList.add("active");
+
+  history.pushState({ service: "rider" }, "", "#rider");
+}
+
+// Service cards
+document.querySelectorAll(".service-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const service = card.dataset.service;
+
+    if (service === "fixnow") {
+      openService("fixnow");
+    }
   });
 });
-// IND ONE: FixNow Back button
-document.getElementById("fixnowBack").addEventListener("click", () => {
-  document.getElementById("fixnow").classList.remove("active");
-  document.getElementById("rider").classList.add("active");
+
+// FixNow Back button
+const fixnowBack = document.getElementById("fixnowBack");
+
+if (fixnowBack) {
+  fixnowBack.addEventListener("click", () => {
+    goBackToRider();
+  });
+}
+
+// Mobile/browser Back button
+window.addEventListener("popstate", () => {
+  goBackToRider();
 });
-                                                                                                                                                                                                                                                                           
