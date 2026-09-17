@@ -290,67 +290,35 @@ function openService(serviceId) {
   });
   // IND ONE: FixNow Service Request Form
 
-document.querySelectorAll(".fix-service").forEach(button => {
-  button.addEventListener("click", () => {
-    const serviceName = button.textContent.trim();
+document.addEventListener("click", (event) => {
+  const button = event.target.closest(".fix-service");
 
-    document.getElementById("selectedFixService").textContent =
-      serviceName + " Request";
+  if (!button) return;
 
-    document.getElementById("fixRequestForm").style.display = "block";
-  });
+  const serviceName = button.textContent.trim();
+
+  const serviceTitle = document.getElementById("selectedFixService");
+  const requestForm = document.getElementById("fixRequestForm");
+
+  if (serviceTitle) {
+    serviceTitle.textContent = serviceName + " Request";
+  }
+
+  if (requestForm) {
+    requestForm.style.display = "block";
+  }
 });
 
 // Cancel request
-const cancelFixRequest = document.getElementById("cancelFixRequest");
+document.addEventListener("click", (event) => {
+  if (event.target.id !== "cancelFixRequest") return;
 
-if (cancelFixRequest) {
-  cancelFixRequest.addEventListener("click", () => {
-    document.getElementById("fixRequestForm").style.display = "none";
-    document.getElementById("fixProblem").value = "";
-    document.getElementById("fixLocation").value = "";
-  });
-}
+  const requestForm = document.getElementById("fixRequestForm");
 
-  const service = document.getElementById(serviceId);
-
-  if (service) {
-    service.classList.add("active");
-    history.pushState({ service: serviceId }, "", "#" + serviceId);
+  if (requestForm) {
+    requestForm.style.display = "none";
   }
-}
 
-function goBackToRider() {
-  document.querySelectorAll(".view").forEach(view => {
-    view.classList.remove("active");
-  });
-
-  document.getElementById("rider").classList.add("active");
-
-  history.pushState({ service: "rider" }, "", "#rider");
-}
-
-// Service cards
-document.querySelectorAll(".service-card").forEach(card => {
-  card.addEventListener("click", () => {
-    const service = card.dataset.service;
-
-    if (service === "fixnow") {
-      openService("fixnow");
-    }
-  });
-});
-
-// FixNow Back button
-const fixnowBack = document.getElementById("fixnowBack");
-
-if (fixnowBack) {
-  fixnowBack.addEventListener("click", () => {
-    goBackToRider();
-  });
-}
-
-// Mobile/browser Back button
-window.addEventListener("popstate", () => {
-  goBackToRider();
+  document.getElementById("fixProblem").value = "";
+  document.getElementById("fixLocation").value = "";
 });
