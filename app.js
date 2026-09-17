@@ -305,4 +305,9 @@ document.querySelectorAll(".fix-service").forEach(button => {
     console.log("FIXNOW SERVICE:", service);
   });
 });
+// IND ONE: FixNow Back button
+document.getElementById("fixnowBack").addEventListener("click", () => {
+  document.getElementById("fixnow").classList.remove("active");
+  document.getElementById("rider").classList.add("active");
+});
                                                                                                                                                                                                                                                                            
