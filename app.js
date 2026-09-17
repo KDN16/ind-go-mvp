@@ -298,4 +298,11 @@ document.querySelector('[data-service="fixnow"]').addEventListener("click", () =
 
   document.getElementById("fixnow").classList.add("active");
 });
+// IND ONE: FixNow service selection
+document.querySelectorAll(".fix-service").forEach(button => {
+  button.addEventListener("click", () => {
+    const service = button.dataset.service;
+    console.log("FIXNOW SERVICE:", service);
+  });
+});
                                                                                                                                                                                                                                                                            
